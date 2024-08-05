@@ -66,6 +66,7 @@ const images = [
     description: 'Lighthouse Coast Sea',
   },
 ];
+
 const createGallery = images => {
   return images
     .map(({ preview, original, description }) => {
@@ -85,16 +86,19 @@ const createGallery = images => {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const galleryContainer = document.querySelector('.gallery');
+  try {
+    const galleryContainer = document.querySelector('.gallery');
+    if (!galleryContainer) {
+      throw new Error('Element with class "gallery" not found in the DOM');
+    }
 
-  if (galleryContainer) {
     galleryContainer.innerHTML = createGallery(images);
 
-    const lightbox = new SimpleLightbox('.gallery a', {
+    new SimpleLightbox('.gallery a', {
       captionsData: 'alt',
       captionDelay: 250,
     });
-  } else {
-    console.error('Element with class "gallery" not found in the DOM');
+  } catch (error) {
+    console.error(error.message);
   }
 });
