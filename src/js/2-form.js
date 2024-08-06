@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log(formData);
       localStorage.removeItem('feedback-form-state');
       form.reset();
+      formData.email = '';
+      formData.message = '';
     });
 
     const savedData = localStorage.getItem('feedback-form-state');
